@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html ng-app="demo-kogito-knative">
+
+<head>
+  <meta charset="utf-8">
+  <title>Frequent Flyer Discount</title>
+
+  <link rel="stylesheet" href="js/patternfly.min.css">
+  <link rel="stylesheet" href="js/patternfly-additions.min.css">
+
+
+
+  <script src="js/patternfly-settings.js"></script>
+  <script src="js/patternfly-settings-colors.js"></script>
+  <script src="js/patternfly-settings-charts.js"></script>
+  <script src="js/angular.js"></script>
+
+  <script src="js/angular-sanitize.js"></script>
+  <script src="js/angular-animate.js"></script>
+  <script src="js/ui-bootstrap-tpls.js"></script>
+
+  <script src="js/lodash.min.js"></script>
+  <script src="js/angular-patternfly.js"></script>
+  <script src="js/angular-ui-router.min.js"></script>
+  <script src="js/angular-drag-and-drop-lists.js"></script>
+
+  <script src="config/config.js"></script>
+  <script src="kogitoClient.js"></script>
+
+
+</head>
+
+<body class="cards-pf">
+  <!-- PatternFly Horizontal Nav -->
+  <nav class="navbar navbar-default navbar-pf" role="navigation">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">
+        <img src="img/b.png" alt="Kogito Loan Bank" />
+      </a>
+    </div>
+    <div class="collapse navbar-collapse navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-utility">
+        <li>
+          <a href="#">Utilisateur</a>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="pficon pficon-user"></span>
+            Mourad Ouachani <b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="#">Link</a>
+            </li>
+            <li>
+              <a href="#">Another link</a>
+            </li>
+            <li>
+              <a href="#">Something else here</a>
+            </li>
+            <li class="divider"></li>
+            <li class="dropdown-submenu">
+              <a tabindex="-1" href="#">More options</a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a href="#">Link</a>
+                </li>
+                <li>
+                  <a href="#">Another link</a>
+                </li>
+                <li>
+                  <a href="#">Something else here</a>
+                </li>
+                <li class="divider"></li>
+                <li class="dropdown-header">Nav header</li>
+                <li>
+                  <a href="#">Separated link</a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                  <a href="#">One more separated link</a>
+                </li>
+              </ul>
+            </li>
+            <li class="divider"></li>
+            <li>
+              <a href="#">One more separated link</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-primary">
+        <li>
+          <a href="#">Acceuil</a>
+        </li>
+        <li class="active">
+          <a href="#">Simulation Crédit</a>
+        </li>
+        <li>
+          <!-- <a href="#">Decision Service Regression Testing</a> -->
+        </li>
+        <li>
+          <!-- <a href="#">Decision Service Impact Testing</a> -->
+        </li>
+      </ul>
+    </div>
+  </nav>
+ 
+    <div ng-controller="call-dmn" class="container-fluid container-cards-pf">
+
+      <div class="col-xs-12 col-md-12">
+        <div class="card-pf-heading">
+          <p class="card-pf-heading-details"></p>
+          <h2 class="right-aligned_all-fields-required">
+            Search Company
+          </h2>
+        </div>
+        <div class="card-pf-body">
+          <form class="form-horizontal" role="form">
+            <div class="form-group">
+                <div class="col-sm-3">
+                    <input class="form-control" type="text" placeholder="Search" aria-label="Search" ng-model="company.id" id="id">
+                </div>
+                <div class="col-sm-2">
+                    <button type="submit" ng-click="search()" class="btn btn-default">Search</button>
+                </div>
+            </div>
+        </form>
+        </div>
+
+        <div class="card-pf-title">Details</div>
+        <table class="table" style="margin-bottom: 10px">
+          <thead>
+            <tr>
+              <th scope="col">Immatriculation Date</th>
+              <th scope="col">Siren</th>
+              <th scope="col">Siret</th>
+              <th scope="col">Denomination</th>
+              <th scope="col">Address</th>
+              <th scope="col">Type</th>
+              <th scope="col">TVA</th>
+              <th scope="col">Revenue</th>
+              <th scope="col">Capital</th>
+              <th scope="col">Worker Number</th>
+              <th scope="col">Updated on</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{company.immatriculationDate}}</td>
+              <td>{{company.siren}}</td>
+              <td>{{company.siret}}</td>
+              <td>{{company.denomination}}</td>
+              <td>{{company.address}}</td>
+              <td>{{company.type}}</td>
+              <td>{{company.tva}}</td>
+              <td>{{company.capitalSocial}}</td>
+              <td>{{company.chiffreAffaire }}</td>
+              <td>{{company.trancheEffectif}}</td>
+              <td>{{company.updateDate}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+   
+
+    <div class="col-xs-12 col-md-8">
+      <div class=" card-pf card-pf-utilization">
+        <div class="card-pf-heading">
+          <p class="card-pf-heading-details"></p>
+          <h2 class="right-aligned_all-fields-required">
+            Project Informations
+          </h2>
+        </div>
+        <div class="card-pf-body">
+          <form class="form-horizontal" role="form">
+            <h3 id="right-aligned_all-fields-required">Informations Bilan</h3>
+            <table class="table" style="margin-bottom: 10px">
+              <thead>
+                <tr>
+                  <th scope="col">
+                    <div class="form-group">
+                      <label for="inputgg" class="col-sm-2 control-label">GG</label>
+                      <div class="col-sm-3">
+                        <input type="text" ng-model="bilan.gg" class="form-control" id="gg" placeholder="10">
+                      </div>
+                    </div>
+                  </th>
+                  <th scope="col">
+                    <div class="form-group">
+                      <label for="inputga" class="col-sm-2 control-label">GA</label>
+                      <div class="col-sm-3">
+                        <input type="text" ng-model="bilan.ga" class="form-control" id="ga" placeholder="20">
+                      </div>
+                    </div>
+                  </th>
+                  <th scope="col">
+                    <div class="form-group">
+                      <label for="inputfl" class="col-sm-2 control-label">FL</label>
+                      <div class="col-sm-3">
+                        <input type="text" ng-model="bilan.fl" class="form-control" id="fl" placeholder="50">
+                      </div>
+                    </div>
+                  </th>
+                </tr>
+              </thead>
+              <thead>
+                <tr>
+                  <th scope="col">
+                    <div class="form-group">
+                      <label for="inputhp" class="col-sm-2 control-label">HP</label>
+                      <div class="col-sm-3">
+                        <input type="text" ng-model="bilan.hp" class="form-control" id="hp" placeholder="30">
+                      </div>
+                    </div>
+                  </th>
+                  <th scope="col">
+                    <div class="form-group">
+                      <label for="inputhq" class="col-sm-2 control-label">HQ</label>
+                      <div class="col-sm-3">
+                        <input type="text" ng-model="bilan.hq" class="form-control" id="hq" placeholder="40">
+                      </div>
+                    </div>
+                  </th>
+                  <th scope="col">
+                    <div class="form-group">
+                      <label for="inputhn" class="col-sm-2 control-label">HN</label>
+                      <div class="col-sm-3">
+                        <input type="text" ng-model="bilan.hn" class="form-control" id="hn" placeholder="3">
+                      </div>
+                    </div>
+                  </th>
+                </tr>
+              </thead>
+              <thead>
+                <tr>
+                  <th scope="col">
+                    <div class="form-group">
+                      <label for="inputfm" class="col-sm-2 control-label">FM</label>
+                      <div class="col-sm-3">
+                        <input type="text" ng-model="bilan.fm" class="form-control" id="fm" placeholder="6">
+                      </div>
+                    </div>
+                  </th>
+                  <th scope="col">
+                    <div class="form-group">
+                      <label for="inputdl" class="col-sm-2 control-label">DL</label>
+                      <div class="col-sm-3">
+                        <input type="text" ng-model="bilan.dl" class="form-control" id="dl" placeholder="5">
+                      </div>
+                    </div>
+                  </th>
+                  <th scope="col">
+                    <div class="form-group">
+                      <label for="inputee" class="col-sm-2 control-label">EE</label>
+                      <div class="col-sm-3">
+                        <input type="text" ng-model="bilan.ee" class="form-control" id="ee" placeholder="5">
+                      </div>
+                    </div>
+                  </th>
+                </tr>
+              </thead>
+            </table>
+
+
+            <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" ng-click="startProcess()" class="btn btn-default">Soumettre</button>
+              </div>
+            </div>
+        </div>
+        </form>
+      </div>
+    </div><!-- /col -->
+    <div class="col-xs-12 col-md-4">
+      <div class="card-pf">
+        <div class="card-pf-heading">
+          <h2 class="card-pf-title">
+            Results
+          </h2>
+        </div>
+        <div>
+          <div>
+            <h5 class="card-title"><strong>Version</strong></h5>
+            <p class="card-text" style="padding-left: 30px">1.0</p>
+          </div>
+          <div>
+            <h5 class="card-title"><strong>Notation</strong></h5>
+            <p class="card-text" style="padding-left: 30px" ng-repeat="note in notation track by $index">{{note}}</p>
+          </div>
+          <div>
+            <h5 class="card-title"><strong>Variables</strong></h5>
+            <table class="table" style="margin-bottom: 10px">
+              <thead>
+                <tr>
+                  <th scope="col">Type</th>
+                  <th scope="col">Value</th>
+                  <th scope="col">Score</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="var in variables track by $index">
+                  <td>{{var.type}}</td>
+                  <td>{{var.valeur}}</td>
+                  <td>{{var.score}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <h5 class="card-title"><strong>Rules</strong></h5>
+            <p class="card-text" style="padding-left: 30px" ng-repeat="rule in rules track by $index">{{rule}}</p>
+          </div>
+          <div>
+            <h5 class="card-title" style="padding-bottom: 10px;"><strong>Execution Time {{msgTime}} ms</strong>
+            </h5>
+          </div>
+        </div>
+      </div><!-- /row -->
+    </div><!-- /container -->
+  </div>
+  </div>
+
+</body>
+
+</html>

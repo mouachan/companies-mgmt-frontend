@@ -1,5 +1,5 @@
 angular
-  .module("demo", [])
+  .module("demo-companies-mgmt", [])
   /*.controller("get-entreprise",function ($scope,$http) {
     $scope.company = { id: ""};
     $scope.search = function () {

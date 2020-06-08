@@ -43,6 +43,8 @@ type: kubernetes.io/basic-auth" | oc apply -f -
 oc new-app quay.io/quarkus/ubi-quarkus-native-s2i:19.3.1-java11~https://github.com/mouachan/companies-svc.git --name=companies-mgmt-frontend --source-secret=github
 
 ```
+## Deployed applications on openshift developer view
+![deployed applications](/img/deployed-applications.png)
 
 ## Search a company
 

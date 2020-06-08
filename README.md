@@ -36,11 +36,22 @@ oc secrets link default quay-secret --for=pull
 git clone https://github.com/mouachan/companies-mgmt-frontend
 
 ```
+## Create a github secret (if need it)
+```
+echo "apiVersion: v1
+data:
+  password: "username"
+  username: "password"
+kind: Secret
+metadata:
+  name: github
+type: kubernetes.io/basic-auth" | oc apply -f - 
+```
 
 ## Build the image on OpenShift
 
 ```
-oc new-app quay.io/quarkus/ubi-quarkus-native-s2i:19.3.1-java11~https://github.com/mouachan/companies-svc.git --name=companies-mgmt-frontend 
+oc new-app quay.io/quarkus/ubi-quarkus-native-s2i:19.3.1-java11~https://github.com/mouachan/companies-svc.git --name=companies-mgmt-frontend --source-secret=github
 
 ```
 

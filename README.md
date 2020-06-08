@@ -10,7 +10,7 @@
 This demo uses Quarkus, mongodb panache (more details : https://quarkus.io/guides/mongodb-panache), knative and kogito in openshift to :
 - build and and deploy using S2I API company management services to add/update/remove a company
 - build a serverless (using knative) credit notation for company 
-- build and deploy the service using openshift S2I 
+- build and deploy the frontend using openshift S2I 
 
 ## Prerequesties 
 Install :

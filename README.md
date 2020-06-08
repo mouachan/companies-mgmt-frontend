@@ -4,7 +4,6 @@
 
 ![Ouachani Logo](/img/logo.png) 
 
-# Companies services management
 
 ## Goal
 

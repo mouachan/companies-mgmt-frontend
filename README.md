@@ -1,9 +1,6 @@
-
-# Frontend companies management services
-
-
 ![Ouachani Logo](/img/logo.png) 
 
+# Frontend companies management services
 
 ## Goal
 

@@ -20,17 +20,6 @@ Install :
 - follow the instruction on https://github.com/mouachan/companies-svc to build the companies management API services
 - follow the instruction on https://github.com/mouachan/companies-notation-svc to build a knative decision services
 
-## Create a registry secret (if it does not exist)
-
-```
-oc create secret docker-registry quay-secret \
-    --docker-server=quay.io/mouachan \
-    --docker-username= \
-    --docker-password=
-oc secrets link builder quay-secret
-oc secrets link default quay-secret --for=pull
-```
-
 ## Clone the source from github (if you want to modify sources....)
 ```
 git clone https://github.com/mouachan/companies-mgmt-frontend

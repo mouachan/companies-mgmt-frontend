@@ -7,18 +7,21 @@
 
 ## Goal
 
-This demo uses Quarkus, mongodb panache (more details : https://quarkus.io/guides/mongodb-panache), knative and kogito in openshift to :
-- build and and deploy using S2I API company management services to add/update/remove a company
-- build a serverless (using knative) credit notation for company 
-- build and deploy the frontend using openshift S2I 
+The application built on openshift use innovative technologies such Quarkus runtime, serverless Kogito decision management, mongodb Panache framework to offer :
+- a rich API services to register/update/remove company in/to/from the catalog
+- a search module to retreive and display the company details
+- a serverless credit score calculator based on the company financial data 
+
+To create the services :
+- follow the instruction on https://github.com/mouachan/companies-svc to build the companies catalog API services
+- follow the instruction on https://github.com/mouachan/companies-notation-svc to build a knative decision services
 
 ## Prerequesties 
 Install :
 - access to openshift
 - oc client
 - odo client
-- follow the instruction on https://github.com/mouachan/companies-svc to build the companies management API services
-- follow the instruction on https://github.com/mouachan/companies-notation-svc to build a knative decision services
+
 
 ## Clone the source from github (if you want to modify sources....)
 ```

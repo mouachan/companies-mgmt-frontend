@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Frequent Flyer Discount</title>
+  <title>Loan Managment Tools</title>
 
   <link rel="stylesheet" href="js/patternfly.min.css">
   <link rel="stylesheet" href="js/patternfly-additions.min.css">
@@ -165,7 +165,38 @@
             </tr>
           </tbody>
         </table>
+
+
+
+      <div class="card-pf-title">Scores </div>
+      
+      <table class="table" style="margin-bottom: 10px">
+        <thead>
+          <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Decoupage Sectoriel</th>
+            <th scope="col">Type Aiguillage</th>
+            <th scope="col">Score</th>
+            <th scope="col">Note</th>
+            <th scope="col">Orientation</th>
+            <th scope="col">Details</th>
+   
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="notation in notations track by $index">
+            <td>{{notation.dateCalcul}}</td>
+            <td>{{notation.decoupageSectoriel}}</td>
+            <td>{{notation.typeAiguillage}}</td>
+            <td>{{notation.score}}</td>
+            <td>{{notation.note}}</td>
+            <td>{{notation.orientation}}</td>
+            <td>{{notation.detail}}</td>
+          </tr>
+        </tbody>
+      </table>
       </div>
+
    
 
     <div class="col-xs-12 col-md-8">
@@ -186,7 +217,7 @@
                     <div class="form-group">
                       <label for="inputgg" class="col-sm-2 control-label">GG</label>
                       <div class="col-sm-3">
-                        <input type="text" ng-model="bilan.gg" class="form-control" id="gg" placeholder="10">
+                        <input type="text" ng-model="bilan.gg" class="form-control" id="gg" placeholder="10" value="10">
                       </div>
                     </div>
                   </th>
@@ -194,7 +225,7 @@
                     <div class="form-group">
                       <label for="inputga" class="col-sm-2 control-label">GA</label>
                       <div class="col-sm-3">
-                        <input type="text" ng-model="bilan.ga" class="form-control" id="ga" placeholder="20">
+                        <input type="text" ng-model="bilan.ga" class="form-control" id="ga" placeholder="20" value="20">
                       </div>
                     </div>
                   </th>
@@ -202,7 +233,7 @@
                     <div class="form-group">
                       <label for="inputfl" class="col-sm-2 control-label">FL</label>
                       <div class="col-sm-3">
-                        <input type="text" ng-model="bilan.fl" class="form-control" id="fl" placeholder="50">
+                        <input type="text" ng-model="bilan.fl" class="form-control" id="fl" placeholder="50" value="50">
                       </div>
                     </div>
                   </th>
@@ -214,7 +245,7 @@
                     <div class="form-group">
                       <label for="inputhp" class="col-sm-2 control-label">HP</label>
                       <div class="col-sm-3">
-                        <input type="text" ng-model="bilan.hp" class="form-control" id="hp" placeholder="30">
+                        <input type="text" ng-model="bilan.hp" class="form-control" id="hp" placeholder="30" value="30">
                       </div>
                     </div>
                   </th>
@@ -222,7 +253,7 @@
                     <div class="form-group">
                       <label for="inputhq" class="col-sm-2 control-label">HQ</label>
                       <div class="col-sm-3">
-                        <input type="text" ng-model="bilan.hq" class="form-control" id="hq" placeholder="40">
+                        <input type="text" ng-model="bilan.hq" class="form-control" id="hq" placeholder="40" value="40">
                       </div>
                     </div>
                   </th>
@@ -230,7 +261,7 @@
                     <div class="form-group">
                       <label for="inputhn" class="col-sm-2 control-label">HN</label>
                       <div class="col-sm-3">
-                        <input type="text" ng-model="bilan.hn" class="form-control" id="hn" placeholder="3">
+                        <input type="text" ng-model="bilan.hn" class="form-control" id="hn" placeholder="3" value="3">
                       </div>
                     </div>
                   </th>
@@ -242,7 +273,7 @@
                     <div class="form-group">
                       <label for="inputfm" class="col-sm-2 control-label">FM</label>
                       <div class="col-sm-3">
-                        <input type="text" ng-model="bilan.fm" class="form-control" id="fm" placeholder="6">
+                        <input type="text" ng-model="bilan.fm" class="form-control" id="fm" placeholder="6" value="6">
                       </div>
                     </div>
                   </th>
@@ -250,7 +281,7 @@
                     <div class="form-group">
                       <label for="inputdl" class="col-sm-2 control-label">DL</label>
                       <div class="col-sm-3">
-                        <input type="text" ng-model="bilan.dl" class="form-control" id="dl" placeholder="5">
+                        <input type="text" ng-model="bilan.dl" class="form-control" id="dl" placeholder="5" value="5">
                       </div>
                     </div>
                   </th>
@@ -258,7 +289,7 @@
                     <div class="form-group">
                       <label for="inputee" class="col-sm-2 control-label">EE</label>
                       <div class="col-sm-3">
-                        <input type="text" ng-model="bilan.ee" class="form-control" id="ee" placeholder="5">
+                        <input type="text" ng-model="bilan.ee" class="form-control" id="ee" placeholder="5" value="5">
                       </div>
                     </div>
                   </th>
@@ -269,7 +300,7 @@
 
             <div class="form-group">
               <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" ng-click="startProcess()" class="btn btn-default">Soumettre</button>
+                <button type="submit" ng-click="startProcess()" class="btn btn-default">Notate</button>
               </div>
             </div>
         </div>

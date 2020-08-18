@@ -1,39 +1,8 @@
 angular
   .module("demo-companies-mgmt", [])
-  /*.controller("get-entreprise",function ($scope,$http) {
-    $scope.company = { id: ""};
-    $scope.search = function () {
-      var search_endpoint = ENV.companiesUrl+'/companies/search/'+ $scope.company.id;
-      console.log("URL "+search_endpoint);
-      $http({
-      method: 'GET',
-      url: search_endpoint
-    }).then(function successCallback(response) {
-      $scope.company = response.data;
-      console.log("company "+$scope.company )
-    }, function errorCallback(response) {
-      console.log(response.statusText);
-    });
-
-  function _success(response) {
-    _refreshPageData();
-    _clearForm();
-  }
-
-  function _error(response) {
-    alert(response.data.message || response.statusText);
-  }
-
-  //Clear the form
-  function _clearForm() {
-    $scope.form.siren = "";
-    $scope.form.denomination = "";
-  }  
-}  
-})*/
   .controller("call-dmn", function ($scope, $http) {
-
     $scope.company = { id: "" };
+    $scope.notations = {id: ""};
     var calcul_variables_endpoint = ENV.baseUrl + '/calcul_variables';
     var notation_endpoint = ENV.baseUrl + '/Orientation';
 
@@ -48,35 +17,42 @@ angular
     $scope.contrepartie = { siren: "1013B" };
 
 
+    function _success(response) {
+      _refreshPageData();
+      _clearForm();
+    }
 
+    function _error(response) {
+      alert(response.data.message || response.statusText);
+    }
+
+    //Clear the form
+    function _clearForm() {
+      $scope.form.siren = "";
+      $scope.form.denomination = "";
+    }
     $scope.search = function () {
-      var search_endpoint = ENV.companiesUrl + '/companies/search/' + $scope.company.id;
+      var search_endpoint = ENV.companiesSvc + '/companies/search/' + $scope.company.id;
+      var search_notation_endpoint = ENV.companiesSvc + '/notation/search/' + $scope.company.id;
+
       $scope.contrepartie.siren = $scope.company.id;
-      console.log("URL " + search_endpoint);
       $http({
         method: 'GET',
         url: search_endpoint
       }).then(function successCallback(response) {
         $scope.company = response.data;
-        console.log("company " + $scope.company)
       }, function errorCallback(response) {
         console.log(response.statusText);
       });
 
-      function _success(response) {
-        _refreshPageData();
-        _clearForm();
-      }
-
-      function _error(response) {
-        alert(response.data.message || response.statusText);
-      }
-
-      //Clear the form
-      function _clearForm() {
-        $scope.form.siren = "";
-        $scope.form.denomination = "";
-      }
+      $http({
+        method: 'GET',
+        url: search_notation_endpoint
+      }).then(function successCallback(response) {
+        $scope.notations = response.data;
+      }, function errorCallback(response) {
+        console.log(response.statusText);
+      });
     }
     function createPayloadBilan(bilan){
       var payload ='{"bilan" : {';
@@ -90,7 +66,7 @@ angular
       if(bilan.dl != null) payload+=",\"dl\":" + bilan.dl;
       if(bilan.ee != null) payload+=",\"ee\":" + bilan.ee;
       payload+='}}';
-      return payload
+      return payload;
     }
     function createPayloadNotation(siren,variables){
       var payload = '{"CodeNaf":"' + siren + '","Variables": [';
@@ -103,31 +79,47 @@ angular
     //var data = '{"CodeNaf":"' + $scope.contrepartie.siren + '","Variables": [{ "valeur":' + rentab_13 + ',"type": "rentab_13"},{"valeur":' + strfin_36 + ',"type": "strfin_36"}],"rules":[]}}';
 
     //        '{"bilan" : {"gg":' + $scope.bilan.gg + ',"ga":' + $scope.bilan.ga + ',"hp":' + $scope.bilan.hp + ',"hq":' + $scope.bilan.hq + ',"fl":' + $scope.bilan.fl + ',"fm":' + $scope.bilan.fm + ',"gg1":' + $scope.bilan.gg1 + ',"ga1":' + $scope.bilan.ga1 + ',"hp1":' + $scope.bilan.hp1 + ',"hq1":' + $scope.bilan.hq1 + ',"fl1":' + $scope.bilan.fl1 + ',"fm1":' + $scope.bilan.fm1 + ',"hn":' + $scope.bilan.hn + ',"ga2":' + $scope.bilan.ga2 + ',"hn2":' + $scope.bilan.hn2 + ',"fl2":' + $scope.bilan.fl2 + ',"fm2":' + $scope.bilan.fm2 + ',"dl":' + $scope.bilan.dl + ',"ee":' + $scope.bilan.ee + '}}'
+    function createPayloadNotationResult(siren,decoupageSectoriel,typeAiguillage,note,score,orientation,detail){
+      var payload = '{'+
+      '"dateCalcul":'+ today() +','+
+      '"decoupageSectoriel": "'+decoupageSectoriel+'",'+
+      '"detail": "'+detail+'",'+
+      '"note": "'+note+'",'+
+      '"orientation": "'+orientation+'",'+
+      '"score": "'+score+'",'+
+      '"siren": "'+siren+'",'+
+      '"typeAiguillage":"'+typeAiguillage+'"'+
+    '}';
+    console.log(payload);
+    return payload;
+    }
 
+    function today(){
+      var today = JSON.stringify(new Date());
+      return today;
+    }
     $scope.startProcess = function () {
+      var data_notation = "";
       var startTime = new Date().getTime();
       var elapsedTime = 0;
       $scope.rules = [];
       $scope.notation = [];
       $scope.variables = [];
       var payloadBilan = createPayloadBilan($scope.bilan);
-      console.log(payloadBilan);
       $http.post(
         calcul_variables_endpoint,
         payloadBilan
       ).then(function (response) {
-        console.log("response :" + response.status);
         $scope.greeting = response.data;
         if (response.status == 200) {
           // approved
-          console.log($scope.greeting);
           // change label to approved
           $scope.displayResults = "";
           $scope.applicationResult = "Variables Calculées";
           $scope.applicationResultIcon = "pficon pficon-ok";
           // add comment to message
          var payloadNotation = createPayloadNotation($scope.contrepartie.siren,$scope.greeting);
-
+          var payloadResultNotation ="";
           $http.post(
             notation_endpoint,
             payloadNotation).then(function (resp) {
@@ -149,10 +141,10 @@ angular
               var_1.type = details[1][1].type;
               var_1.valeur = details[1][1].valeur;
               var_1.score = details[1][0];
+              var detail = var_0.type + " - " + var_0.valeur + " ; "+ var_1.type + " - " + var_1.score;
               $scope.variables = [var_0, var_1];
               var typeAiguillage = decision_notation.TypeAiguillage;
               var decoupageSectoriel = decision_notation.DecoupageSectoriel;
-              console.log(typeAiguillage);
               if (typeAiguillage != "NON_NOTE") {
                 // approved
                 console.log("approved");
@@ -175,6 +167,7 @@ angular
                   $scope.rules.push(rules[i]);
                 }
                 console.log($scope.applicationResultMessages);
+                payloadResultNotation =  createPayloadNotationResult($scope.contrepartie.siren,decoupageSectoriel,typeAiguillage,note,scoreFinal,orientation,detail);               
               } else {
                 console.log("rejected");
                 // rejected
@@ -186,9 +179,24 @@ angular
                 $scope.version = msgContainer;
                 $scope.notation = ["Non Elligibile à la notation"];
                 $scope.rules.push(rules[0]);
-                console.log($scope.applicationResultMessages);
+                payloadResultNotation =  createPayloadNotationResult($scope.contrepartie.siren,"0","NON_NOTE","NON_CALCULE","NON_CALCULE","NON_CALCULE","NON_CALCULE");
+                //end else 
               }
+              $http({
+                method: "POST",
+                url: ENV.companiesSvc+'/notation/add',
+                data: payloadResultNotation,
+                headers: {
+                  'Content-Type': 'application/json'
+                }
+              }).then(function successCallback(response) {
+                console.log("inserted");
+              }, function errorCallback(response) {
+                console.log("can't insert note  ");
+              });
             });
+            
+            
         }
       });
     }

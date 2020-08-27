@@ -4,6 +4,7 @@ var ENV = {
   //companiesSvc: "http://companies-svc-companies-credit.apps.ocp4.ouachani.net"
 
   baseUrl: "http://localhost:8380",
+  loanUrl: "http://localhost:8480",
   companiesSvc: "http://localhost:8280"
 
 }

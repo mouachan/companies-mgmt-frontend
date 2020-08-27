@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html ng-app="demo-companies-mgmt">
+
+<head>
+  <meta charset="utf-8">
+  <title>Loan Managment Tools</title>
+
+  <link rel="stylesheet" href="js/patternfly.min.css">
+  <link rel="stylesheet" href="js/patternfly-additions.min.css">
+
+
+
+  <script src="js/patternfly-settings.js"></script>
+  <script src="js/patternfly-settings-colors.js"></script>
+  <script src="js/patternfly-settings-charts.js"></script>
+  <script src="js/angular.js"></script>
+
+  <script src="js/angular-sanitize.js"></script>
+  <script src="js/angular-animate.js"></script>
+  <script src="js/ui-bootstrap-tpls.js"></script>
+
+  <script src="js/lodash.min.js"></script>
+  <script src="js/angular-patternfly.js"></script>
+  <script src="js/angular-ui-router.min.js"></script>
+  <script src="js/angular-drag-and-drop-lists.js"></script>
+
+  <script src="config/config.js"></script>
+  <script src="kogitoClient.js"></script>
+
+
+</head>
+
+<body class="cards-pf">
+  <!-- PatternFly Horizontal Nav -->
+  <nav class="navbar navbar-default navbar-pf" role="navigation">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">
+        <img src="img/b.png" alt="Kogito Loan Bank" />
+      </a>
+    </div>
+    <div class="collapse navbar-collapse navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-utility">
+        <li>
+          <a href="#">Utilisateur</a>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="pficon pficon-user"></span>
+            Mourad Ouachani <b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="#">Link</a>
+            </li>
+            <li>
+              <a href="#">Another link</a>
+            </li>
+            <li>
+              <a href="#">Something else here</a>
+            </li>
+            <li class="divider"></li>
+            <li class="dropdown-submenu">
+              <a tabindex="-1" href="#">More options</a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a href="#">Link</a>
+                </li>
+                <li>
+                  <a href="#">Another link</a>
+                </li>
+                <li>
+                  <a href="#">Something else here</a>
+                </li>
+                <li class="divider"></li>
+                <li class="dropdown-header">Nav header</li>
+                <li>
+                  <a href="#">Separated link</a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                  <a href="#">One more separated link</a>
+                </li>
+              </ul>
+            </li>
+            <li class="divider"></li>
+            <li>
+              <a href="#">One more separated link</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-primary">
+        <li>
+          <a href="#">Home</a>
+        </li>
+        <li class="active">
+          <a href="#">Notation Process Services</a>
+        </li>
+        <li>
+        </li>
+        <li>
+        </li>
+      </ul>
+    </div>
+  </nav>
+ 
+    <div ng-controller="call-process" class="container-fluid container-cards-pf">
+
+      <div class="col-xs-12 col-md-12">
+        <div class="card-pf-heading">
+          <p class="card-pf-heading-details"></p>
+          <h2 class="right-aligned_all-fields-required">
+            Simulate Loan By Process
+          </h2>
+        </div>
+      </div>
+    <div class="col-xs-12 col-md-8">
+      <div class=" card-pf card-pf-utilization">
+        <div class="card-pf-heading">
+          <p class="card-pf-heading-details"></p>
+          <h2 class="right-aligned_all-fields-required">
+            Project Informations
+          </h2>
+        </div>
+        <div class="card-pf-body">
+          <form class="form-horizontal" role="form">
+            <h3 id="right-aligned_all-fields-required">Informations Bilan</h3>
+            <table class="table" style="margin-bottom: 10px">
+              <thead>
+                <tr>
+                  <div class="form-group">
+                    <label for="siren" class="col-sm-2 control-label">Siren</label>
+                    <div class="col-sm-3">
+                      <input type="text" ng-model="bilan.siren" class="form-control" id="siren" placeholder="10" value="10">
+                    </div>
+                  </div>
+                </tr>
+                <tr>
+                  <th scope="col">
+                    <div class="form-group">
+                      <label for="inputgg" class="col-sm-2 control-label">GG</label>
+                      <div class="col-sm-3">
+                        <input type="text" ng-model="bilan.gg" class="form-control" id="gg" placeholder="10" value="10">
+                      </div>
+                    </div>
+                  </th>
+                  <th scope="col">
+                    <div class="form-group">
+                      <label for="inputga" class="col-sm-2 control-label">GA</label>
+                      <div class="col-sm-3">
+                        <input type="text" ng-model="bilan.ga" class="form-control" id="ga" placeholder="20" value="20">
+                      </div>
+                    </div>
+                  </th>
+                  <th scope="col">
+                    <div class="form-group">
+                      <label for="inputfl" class="col-sm-2 control-label">FL</label>
+                      <div class="col-sm-3">
+                        <input type="text" ng-model="bilan.fl" class="form-control" id="fl" placeholder="50" value="50">
+                      </div>
+                    </div>
+                  </th>
+                </tr>
+              </thead>
+              <thead>
+                <tr>
+                  <th scope="col">
+                    <div class="form-group">
+                      <label for="inputhp" class="col-sm-2 control-label">HP</label>
+                      <div class="col-sm-3">
+                        <input type="text" ng-model="bilan.hp" class="form-control" id="hp" placeholder="30" value="30">
+                      </div>
+                    </div>
+                  </th>
+                  <th scope="col">
+                    <div class="form-group">
+                      <label for="inputhq" class="col-sm-2 control-label">HQ</label>
+                      <div class="col-sm-3">
+                        <input type="text" ng-model="bilan.hq" class="form-control" id="hq" placeholder="40" value="40">
+                      </div>
+                    </div>
+                  </th>
+                  <th scope="col">
+                    <div class="form-group">
+                      <label for="inputhn" class="col-sm-2 control-label">HN</label>
+                      <div class="col-sm-3">
+                        <input type="text" ng-model="bilan.hn" class="form-control" id="hn" placeholder="3" value="3">
+                      </div>
+                    </div>
+                  </th>
+                </tr>
+              </thead>
+              <thead>
+                <tr>
+                  <th scope="col">
+                    <div class="form-group">
+                      <label for="inputfm" class="col-sm-2 control-label">FM</label>
+                      <div class="col-sm-3">
+                        <input type="text" ng-model="bilan.fm" class="form-control" id="fm" placeholder="6" value="6">
+                      </div>
+                    </div>
+                  </th>
+                  <th scope="col">
+                    <div class="form-group">
+                      <label for="inputdl" class="col-sm-2 control-label">DL</label>
+                      <div class="col-sm-3">
+                        <input type="text" ng-model="bilan.dl" class="form-control" id="dl" placeholder="5" value="5">
+                      </div>
+                    </div>
+                  </th>
+                  <th scope="col">
+                    <div class="form-group">
+                      <label for="inputee" class="col-sm-2 control-label">EE</label>
+                      <div class="col-sm-3">
+                        <input type="text" ng-model="bilan.ee" class="form-control" id="ee" placeholder="5" value="5">
+                      </div>
+                    </div>
+                  </th>
+                </tr>
+              </thead>
+            </table>
+            <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" ng-click="runProcess()" class="btn btn-default">Notate</button>
+              </div>
+            </div>
+        </div>
+        </form>
+      </div><!-- /col -->
+    </div>
+  <div class="col-xs-12 col-md-12">
+    <div class="card-pf-heading">
+      <p class="card-pf-heading-details"></p>
+      <h2 class="right-aligned_all-fields-required">
+        Search Company
+      </h2>
+    </div>
+  </div>
+    <div class="card-pf-body">
+      <form class="form-horizontal" role="form">
+        <div class="form-group">
+            <div class="col-sm-3">
+                <input class="form-control" type="text" placeholder="SIREN" aria-label="Search" ng-model="company.id" id="id">
+            </div>
+            <div class="col-sm-2">
+                <button type="submit" ng-click="searchCompany()" class="btn btn-default">Search</button>
+            </div>
+        </div>
+    </form>
+    </div>
+
+    <div class="card-pf-title">Details</div>
+    <table class="table" style="margin-bottom: 10px">
+      <thead>
+        <tr>
+          <th scope="col">Immatriculation Date</th>
+          <th scope="col">Siren</th>
+          <th scope="col">Siret</th>
+          <th scope="col">Denomination</th>
+          <th scope="col">Address</th>
+          <th scope="col">Type</th>
+          <th scope="col">TVA</th>
+          <th scope="col">Revenue</th>
+          <th scope="col">Capital</th>
+          <th scope="col">Worker Number</th>
+          <th scope="col">Updated on</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{company.immatriculationDate}}</td>
+          <td>{{company.siren}}</td>
+          <td>{{company.siret}}</td>
+          <td>{{company.denomination}}</td>
+          <td>{{company.address}}</td>
+          <td>{{company.type}}</td>
+          <td>{{company.tva}}</td>
+          <td>{{company.capitalSocial}}</td>
+          <td>{{company.chiffreAffaire }}</td>
+          <td>{{company.trancheEffectif}}</td>
+          <td>{{company.updateDate}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+
+
+  <div class="card-pf-title">Scores </div>
+  
+  <table class="table" style="margin-bottom: 10px">
+    <thead>
+      <tr>
+        <th scope="col">Date</th>
+        <th scope="col">Decoupage Sectoriel</th>
+        <th scope="col">Type Aiguillage</th>
+        <th scope="col">Score</th>
+        <th scope="col">Note</th>
+        <th scope="col">Orientation</th>
+        <th scope="col">Details</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="notation in notations track by $index">
+        <td>{{notation.dateCalcul}}</td>
+        <td>{{notation.decoupageSectoriel}}</td>
+        <td>{{notation.typeAiguillage}}</td>
+        <td>{{notation.score}}</td>
+        <td>{{notation.note}}</td>
+        <td>{{notation.orientation}}</td>
+        <td>{{notation.detail}}</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+</body>
+
+</html>

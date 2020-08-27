@@ -202,3 +202,74 @@ angular
     }
 
   })
+  .controller("call-process", function ($scope, $http) {
+    function payloadBilan(bilan){
+      var payload ='{"bilan" : {';
+      if(bilan.siren != null) payload+="\"siren\":" + bilan.siren;
+      if(bilan.gg != null) payload+=",\"gg\":" + bilan.gg;
+      if(bilan.ga != null) payload+=",\"ga\":" + bilan.ga;
+      if(bilan.hp != null) payload+=",\"hp\":" + bilan.hp;
+      if(bilan.hq != null) payload+=",\"hq\":" + bilan.hq;
+      if(bilan.hn != null) payload+=",\"hn\":" + bilan.hn;
+      if(bilan.fl != null) payload+=",\"fl\":" + bilan.fl;
+      if(bilan.fm != null) payload+=",\"fm\":" + bilan.fm;
+      if(bilan.dl != null) payload+=",\"dl\":" + bilan.dl;
+      if(bilan.ee != null) payload+=",\"ee\":" + bilan.ee;
+      payload+='}}';
+      return payload;
+    }
+    
+    
+    $scope.runProcess = function () {
+      var bilan = payloadBilan($scope.bilan);
+      var idProcess = "";
+      console.log(bilan);
+      $http({
+        method: "POST",
+        url: ENV.loanUrl + '/loanValidation',
+        data: bilan,
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then(function successCallback(response) {
+        console.log(response.data);
+        idProcess = response.data.id;
+      }, function errorCallback(response) {
+        console.log("can't insert note  ");
+      });
+      $http({
+        method: 'GET',
+        url: ENV.loanUrl + '/loanValidation/'+idProcess
+      }).then(function successCallback(response) {
+        console.log(response.data);
+
+      }, function errorCallback(response) {
+        console.log(response.statusText);
+      });
+    }
+    $scope.searchCompany = function () {
+      var search_endpoint = ENV.companiesSvc + '/companies/search/' + $scope.company.id;
+      var search_notation_endpoint = ENV.companiesSvc + '/notation/search/' + $scope.company.id;
+
+      $scope.siren = $scope.company.id;
+      $http({
+        method: 'GET',
+        url: search_endpoint
+      }).then(function successCallback(response) {
+        $scope.company = response.data;
+      }, function errorCallback(response) {
+        console.log(response.statusText);
+      });
+
+      $http({
+        method: 'GET',
+        url: search_notation_endpoint
+      }).then(function successCallback(response) {
+        $scope.notations = response.data;
+      }, function errorCallback(response) {
+        console.log(response.statusText);
+      });
+    }
+
+    
+  })
